@@ -53,7 +53,7 @@ class Sunburst: ObservableObject {
 
     private(set) var rootArcs: [Arc] = []                   { willSet { objectWillChange.send() } }
     private var arcsCache: [UUID : Arc] = [:]               { willSet { objectWillChange.send() } }
-    private var focusedLevel: UInt = 0                      { willSet { objectWillChange.send() } }
+    public var focusedLevel: UInt = 0                      { willSet { objectWillChange.send() } }
 
     public let objectWillChange = ObservableObjectPublisher()
 

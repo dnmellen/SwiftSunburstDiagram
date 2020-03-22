@@ -27,7 +27,8 @@ struct ArcView: View {
         return ZStack() {
             arcShape.fill(arc.backgroundColor).animation(animation)
             arcShape.stroke(Color.primary, lineWidth: isNodeSelected() ? 4 : 0).clipShape(arcShape).animation(animation)
-            if arc.width > 0 {
+            if arc.width > 0 && (configuration.maximumRingsShownCount == nil || arc.level <= configuration.maximumRingsShownCount!)
+                && (self.arc.arcIsExpanded(configuration: self.configuration, focusedLevel: self.configuration.sunburst.focusedLevel)) {
                     ArcLabel(arc, configuration: configuration).animation(animation)
             }
         }
