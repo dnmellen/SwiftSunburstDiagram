@@ -140,7 +140,7 @@ extension SunburstConfiguration {
         // TODO: implement minimumArc size
     }
     
-    var totalNodesValue: Double {
+    public var totalNodesValue: Double {
         let totalNodesValue: Double
         if case .parentDependent(let totalValue) = calculationMode, let value = totalValue {
             totalNodesValue = value
