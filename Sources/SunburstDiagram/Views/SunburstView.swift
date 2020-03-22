@@ -11,10 +11,11 @@ import SwiftUI
 public struct SunburstView: View {
 
     @ObservedObject var sunburst: Sunburst
-    var callback: (Node?, Node?) -> Void = {_,_ in }
+    var callback: ((Node?, Node?) -> Void)?
     
-    public init(configuration: SunburstConfiguration) {
+    public init(configuration: SunburstConfiguration, callback: ((Node?, Node?) -> Void)? = nil) {
         sunburst = configuration.sunburst
+        self.callback = callback
     }
     
     public var body: some View {
@@ -44,7 +45,9 @@ public struct SunburstView: View {
                 }
                 
                 // Run callback
-                self.callback(self.sunburst.configuration.focusedNode, self.sunburst.configuration.selectedNode)
+                if self.callback != nil {
+                    self.callback!(self.sunburst.configuration.focusedNode, self.sunburst.configuration.selectedNode)
+                }
             }
             IfLet(arc.childArcs) { childArcs in
                 AnyView(self.configureViews(arcs: childArcs, parentArc: arc))
