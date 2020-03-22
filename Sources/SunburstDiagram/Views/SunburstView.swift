@@ -11,6 +11,7 @@ import SwiftUI
 public struct SunburstView: View {
 
     @ObservedObject var sunburst: Sunburst
+    var callback: (Node?, Node?) -> Void = {_,_ in }
     
     public init(configuration: SunburstConfiguration) {
         sunburst = configuration.sunburst
@@ -41,6 +42,9 @@ public struct SunburstView: View {
                 } else {
                     self.sunburst.configuration.selectedNode = arc.node
                 }
+                
+                // Run callback
+                self.callback(self.sunburst.configuration.focusedNode, self.sunburst.configuration.selectedNode)
             }
             IfLet(arc.childArcs) { childArcs in
                 AnyView(self.configureViews(arcs: childArcs, parentArc: arc))
